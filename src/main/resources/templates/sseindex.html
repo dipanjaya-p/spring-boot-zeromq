@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Events Demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .navbar {
+        min-height: 80px;
+    }
+     .navbar-brand{
+        margin: auto;
+        font-size: 2.6rem;
+     }
+    .panel{
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .h3{
+        color: blue;
+    }
+    .pstyle{
+        font-size: 4rem,
+        font-family: verdana, sans-serif;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        var urlEndPoint = 'http://localhost:1055/9030/flight';
+        var eventSource = new EventSource(urlEndPoint);
+
+
+
+        eventSource.addEventListener("flight", function(event){
+            console.log(event.data)
+        })
+    })
+
+     function addblock(flightId, operatingAirlines){
+            var a = document.createElement("article");
+
+            var h = document.createElement("H3");
+            var t = document.createTextNode(flightId);
+            h.appendChild(t);
+
+            var oa =  document.createElement("P");
+            oa.innerHTML = operatingAirlines;
+
+            a.appendChild(h);
+            a.appendChild(oa);
+            document.getElementById("pack").appendChild(a);
+        }
+</script>
+<body>
+    <nav>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand">Latest Events Here</div>
+            </div>
+        </div>
+    </nav>
+    <div class="container pstyle text-center" id="pack">
+        <div class="panel panel-primary">
+            Event Timeline
+        </div>
+    </div>
+
+</body>
+</html>
